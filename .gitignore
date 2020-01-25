@@ -9,6 +9,7 @@
 !.python-version
 !.remarkrc
 !.travis.yml
+!.gitkeep
 *.py[cod]
 *.ipynb*
 *.egg*
