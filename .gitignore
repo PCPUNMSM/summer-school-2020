@@ -11,7 +11,7 @@
 !.travis.yml
 !.gitkeep
 *.py[cod]
-*.ipynb*
+*.ipynb_*
 *.egg*
 coverage.*
 build
