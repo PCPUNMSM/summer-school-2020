@@ -28,6 +28,12 @@ repos:
       - id: pydocstyle
         files: ^week-2/
 
+  - repo: https://github.com/kynan/nbstripout
+    rev: master
+    hooks:
+      - id: nbstripout
+        files: ".ipynb"
+
   - repo: https://github.com/PyCQA/bandit
     rev: 1.6.2
     hooks:
