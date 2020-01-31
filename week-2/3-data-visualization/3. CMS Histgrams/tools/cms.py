@@ -12,7 +12,7 @@ from IPython.display import clear_output, display
 def get_collisions_from_filename(infilename, verbose=False):
 
     infile = None
-    if zipfile.is_zipfile(infilename):
+    if zipfile.is_zipfile(infilename) is True:
         z = zipfile.ZipFile(infilename, "r")
         infile = z.open(z.namelist()[0], "r")
     else:
@@ -48,7 +48,7 @@ def get_collisions(infile, verbose=False):
         if line.find("Event") >= 0:
             new_collision = True
 
-        if new_collision:
+        if new_collision == True:
 
             # Read in the jet info for this collision.
             jets = []
@@ -107,8 +107,7 @@ def get_collisions(infile, verbose=False):
                 pz = float(vals[3])
                 photons.append([e, px, py, pz])
 
-            # Read in the information about the missing transverse energy
-            # (MET) in the collision.
+            # Read in the information about the missing transverse energy (MET) in the collision.
             # This is really the x and y direction for the missing momentum.
             line = infile.readline()
             vals = line.split()
@@ -262,7 +261,7 @@ def draw_jet3D(origin=[(0, 0, 0)], pmom=[(1, 1, 1)], ls="solid", color="orange")
             neworg = np.vstack((neworg, (0, 0, 0)))
 
     lines = draw_line3D(origin=neworg, pmom=newmom, color=color, lw=1, ls=ls)
-    # lines += draw_line3D(origin=neworg,pmom=newmom,color='gray',lw=.25,ls='solid')
+    ##lines += draw_line3D(origin=neworg,pmom=newmom,color='gray',lw=.25,ls='solid')
 
     return lines
 
@@ -270,7 +269,7 @@ def draw_jet3D(origin=[(0, 0, 0)], pmom=[(1, 1, 1)], ls="solid", color="orange")
 def draw_muon3D(origin=[(0, 0, 0)], pmom=[(1, 1, 1)], ls="solid", color="blue"):
 
     lines = draw_line3D(origin=origin, pmom=pmom, color=color, lw=5, ls=ls)
-    # lines += draw_line3D(origin=origin,pmom=pmom,color='gray',lw=.25,ls='solid')
+    ##lines += draw_line3D(origin=origin,pmom=pmom,color='gray',lw=.25,ls='solid')
 
     return lines
 
@@ -278,7 +277,7 @@ def draw_muon3D(origin=[(0, 0, 0)], pmom=[(1, 1, 1)], ls="solid", color="blue"):
 def draw_electron3D(origin=[(0, 0, 0)], pmom=[(1, 1, 1)], ls="solid", color="green"):
 
     lines = draw_line3D(origin=origin, pmom=pmom, color=color, lw=2, ls=ls)
-    # lines += draw_line3D(origin=origin,pmom=pmom,color='gray',lw=.25,ls='solid')
+    ##lines += draw_line3D(origin=origin,pmom=pmom,color='gray',lw=.25,ls='solid')
 
     return lines
 
@@ -286,7 +285,7 @@ def draw_electron3D(origin=[(0, 0, 0)], pmom=[(1, 1, 1)], ls="solid", color="gre
 def draw_photon3D(origin=[(0, 0, 0)], pmom=[(1, 1, 1)], ls="solid", color="gray"):
 
     lines = draw_line3D(origin=origin, pmom=pmom, color=color, ls=ls, lw=4)
-    #  lines += draw_line3D(origin=origin,pmom=pmom,color='gray',lw=.25,ls='solid')
+    ## lines += draw_line3D(origin=origin,pmom=pmom,color='gray',lw=.25,ls='solid')
 
     return lines
 
@@ -304,7 +303,7 @@ def display_collision3D(collision, fig=None, ax=None, color_blind=False):
     jets, muons, electrons, photons, met = collision
 
     lines = draw_beams()
-    if color_blind:
+    if color_blind == False:
         pmom = np.array(jets).transpose()[1:4].transpose()
         origin = np.zeros((len(jets), 3))
         lines += draw_jet3D(origin=origin, pmom=pmom)
@@ -320,7 +319,7 @@ def display_collision3D(collision, fig=None, ax=None, color_blind=False):
         pmom = np.array(photons).transpose()[1:4].transpose()
         origin = np.zeros((len(photons), 3))
         lines += draw_photon3D(origin=origin, pmom=pmom)
-    if color_blind:
+    if color_blind == True:
         pmom = np.array(jets).transpose()[1:4].transpose()
         origin = np.zeros((len(jets), 3))
         lines += draw_jet3D(origin=origin, pmom=pmom, ls="solid", color="gray")
